@@ -13,6 +13,19 @@ function App() {
   const [selectPref, setSelectPref] = useState<number[]>([]);
   const [populationData, setPopulationData] = useState<any[]>([]);
 
+  const [chartNumber,setChartNumber] = useState<any>({
+    title: {
+      text: "都道府県別人口推移グラフ",
+    },
+    xAxis: {
+      title: {text: "年度"},
+    },
+    yAxis: {
+      title: {text: "人口"},
+    },
+    series: [],
+  });
+
   //都道府県一覧を取得
   useEffect(() => {
     const fetchData = async () => {
@@ -50,7 +63,7 @@ function App() {
   };
 
   //人口構成取得
-  const fetchPopulation = async (prefCode: number) => {
+  const fetchPopulation = async (prefCode: number, prefName: string ) => {
     try{
       const response = await fetch(`api/api/v1/population/composition/perYear?prefCode=${prefCode}`,
         {
@@ -62,11 +75,20 @@ function App() {
         }
       );
       const result = await response.json();
+      const data = result.result.data.find((d: any) => d.label === "総人口").data;
+      const years = data.map((d: any) => d.year);
+      const values = data.map((d: any) => d.value);
       console.log(`人口構成 (${prefCode})`, result.result.data);
       setPopulationData((prev) => [
         ...prev,
         {prefCode, data: result.result.data},
       ])
+
+      setChartNumber((prev: any) => ({
+        ...prev,
+        xAxis: {...prev.xAxis, categories: years},
+        series: [...prev.series, {name: prefName, data: values}]
+      }))
     }catch (error){
       console.error("人口構成取得エラー",error);
     }
@@ -96,6 +118,9 @@ function App() {
             
           </div>
         </div>
+
+        <HighchartsReact highcharts={Highcharts} options={chartNumber} />
+
     </>
   )
 }
