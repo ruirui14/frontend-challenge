@@ -1,0 +1,19 @@
+.pref-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  background-color: #f9fafb;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.gurahu {
+  padding-top: 3rem;
+}
+
+ h2 {
+  background-color: skyblue;
+  padding: 0.2rem 0.2rem;
+  width: 100px;
+  border-radius: 12px;
+ }

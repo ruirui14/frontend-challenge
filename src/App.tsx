@@ -1,4 +1,4 @@
-//import './App.css'
+import './App.css'
 import { useEffect,useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
@@ -142,7 +142,7 @@ function App() {
 
         <div>
             <h2>都道府県</h2>
-          <div>
+          <div className='pref-list'>
             {datas.map((data) => (
               <label key={data.prefCode} >
                 <input type="checkbox" 
@@ -159,7 +159,9 @@ function App() {
           </div>
         </div>
 
-        <HighchartsReact highcharts={Highcharts} options={chartNumber} />
+        <div className='gurahu'>
+          <HighchartsReact highcharts={Highcharts} options={chartNumber} />
+        </div>
 
     </>
   )
