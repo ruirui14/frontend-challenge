@@ -1,14 +1,13 @@
 //import './App.css'
 import { useEffect,useState } from "react";
 
-const API_URL = import.meta.env.VITE_API_BASE_URL;
+// const API_URL = import.meta.env.VITE_API_BASE_URL;
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 function App() {
-  const items = Array.from({ length: 40 }, (_, i) => `項目 ${i + 1}`);
-  const [data,setData] = useState<any[]>([]);
+  //const items = Array.from({ length: 40 }, (_, i) => `項目 ${i + 1}`);
+  const [datas,setData] = useState<any[]>([]);
   const [error,setError] = useState<string | null>(null);
-  const [loading,setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,11 +23,12 @@ function App() {
         if(!response.ok) throw new Error(`Error: ${response.status}`)
 
         const result = await response.json();
-        setData(result);  
-      } catch ( error:any) {
+        console.log("APIの結果", result);
+        setData(result.result);  
+      } catch ( error : any) {
           setError(error.message);
       } finally {
-          setLoading(false);
+          console.log();
       }  
       };
       fetchData();
@@ -42,15 +42,12 @@ function App() {
         </div>
 
         <div>
-          <div>
             <h2>都道府県</h2>
-          </div>
-
           <div>
-            {items.map((item) => (
-              <label key={item} >
-                <input type="checkbox" id="hokka" name="hokka" />
-                北海道
+            {datas.map((data) => (
+              <label key={data.prefCode} >
+                <input type="checkbox" id={`data-${data.prefCode}`} name={`${data.prefName}`} />
+                {data.prefName}
               </label>
             ))}
             
