@@ -3,7 +3,7 @@ import { useEffect,useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
-//const API_URL = import.meta.env.VITE_API_BASE_URL;
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 type Prefecture = {
@@ -57,7 +57,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/api/v1/prefectures", {
+        const response = await fetch(`${API_URL}/api/v1/prefectures`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json; charset=UTF-8",
@@ -100,7 +100,7 @@ function App() {
   //人口構成取得
   const fetchPopulation = async (prefCode: number, prefName: string ) => {
     try{
-      const response = await fetch(`/api/api/v1/population/composition/perYear?prefCode=${prefCode}`,
+      const response = await fetch(`${API_URL}/api/v1/population/composition/perYear?prefCode=${prefCode}`,
         {
           method: "GET",
           headers: {
