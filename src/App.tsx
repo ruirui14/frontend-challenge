@@ -36,9 +36,9 @@ type PopulationData = {
 function App() {
   //const items = Array.from({ length: 40 }, (_, i) => `項目 ${i + 1}`);
   const [datas,setData] = useState<Prefecture[]>([]);
-  const [error,setError] = useState<string | null>(null);
-  const [selectPref, setSelectPref] = useState<number[]>([]);
-  const [populationData, setPopulationData] = useState<PopulationData[]>([]);
+  const [_error,setError] = useState<string | null>(null);
+  const [_selectPref, setSelectPref] = useState<number[]>([]);
+  const [_populationData, setPopulationData] = useState<PopulationData[]>([]);
 
   const [chartNumber,setChartNumber] = useState<Highcharts.Options>({
     title: {
